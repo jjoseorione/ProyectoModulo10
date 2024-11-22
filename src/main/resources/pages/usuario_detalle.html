@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      lang="es">
+<head th:insert="layout :: head"></head>
+<body>
+    <div th:insert="layout :: nav"></div>
+    <div class="container mt-5">
+        <div class="card" style="width: auto;">
+            <div class="card-body">
+                <h4 th:text="${usuario.usuario}"></h4>
+                <p class="card-text">
+                    <p><strong>Id:</strong> <span th:text="${usuario.idUsuario}"></span></p>
+                    <p><strong>Usuario:</strong> <span th:text="${usuario.usuario}"></span></p>
+                    <p><strong>Nombre:</strong> <span th:text="${usuario.nombre}"></span></p>
+                    <p><strong>Apellidos:</strong> <span th:text="${usuario.apPat} + ' ' + ${usuario.apMat}"></span></p>
+                    <p><strong>Email:</strong> <span th:text="${usuario.email}"></span></p>
+                    <p><strong>Contraseña:</strong> <span th:text="${usuario.contrasena}"></span></p>
+                    <p><strong>Intentos fallidos:</strong> <span th:text="${usuario.intentos}"></span></p>
+                    <p><strong>Estatus:</strong> <span th:text="${usuario.estatus}"></span></p>
+                    <p><strong>Tipo de Usuario:</strong> <span th:text="${usuario.tipoUsuario}"></span></p>
+                    <p><strong>Fecha de exp usuario:</strong> <span th:text="${usuario.fechaExpUsuario}"></span></p>
+                    <p><strong>Fecha de exp contraseña:</strong> <span th:text="${usuario.fechaExpContrasena}"></span></p>
+                </p>
+                <a th:href="@{/front/usuarios/}" class="btn btn-primary">Ir a todos los usuarios</a>
+            </div>
+        </div>
+    </div>
+    <div th:insert="layout :: footer"></div>
+
+
+
+
+
+</body>
+</html>

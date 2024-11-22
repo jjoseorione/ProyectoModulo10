@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      lang="es">
+<head th:fragment="head">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Banunam - Customer Care Center</title>
+    <link th:href="@{/bootstrap/css/bootstrap.min.css}" rel="stylesheet">
+    <link th:href="@{/bootstrap/js/bootstrap.js}" rel="stylesheet">
+    <link th:href="@{/styles/styles.css}" rel="stylesheet">
+    <script type="text/javascript" th:src="@{/js/funciones.js}"></script>
+</head>
+<body>
+    <header th:fragment="header">
+        <h2 class="tituloPagina mb-1"><span>Banunam - Customer Care Center</span></h2>
+        <!-- ••••••••••••• BARRA DE NAVEGACIÓN ••••••••••••• -->
+        <div class="container-fluid fondo">
+            <div class="row barraNav">
+                <div class="col-md-2 barraBoton">
+                    <a href="#">Clientes</a>
+                    <div class="col-md-2 barraBoton-contenido">
+                        <a href="#">Aprobación</a>
+                        <a th:href="@{/clientes/agregar}">Agregar Cliente</a>
+                        <a th:href="@{/clientes/buscar}">Buscar Cliente</a>
+                    </div>
+                </div>
+                <div class="col-md-4 barraBoton"  id="menuCuentasDebito">
+                    <a href="#">Cuentas de Débito</a>
+                    <div class="col-md-4 barraBoton-contenido">
+                        <a th:href="@{/cuentas-debito/buscar}">Buscar Cuenta de Débito</a>
+                        <a th:href="@{/cuentas-debito/agregar}">Crear Cuenta de Débito</a>
+                        <a href="#">Realizar Depósito</a>
+                        <a href="#">Realizar Retiro</a>
+                        <a href="#">Solicitar Tarjeta</a>
+                        <a th:href="@{/cuentas-debito/movimientos}">Ver Movimientos</a>
+                    </div>
+                </div>
+                <div class="col-md-4 barraBoton" id="menuCuentasCredito">
+                    <a href="#">Cuentas de Crédito</a>
+                    <div class="col-md-4 barraBoton-contenido">
+                        <a th:href="@{/cuentas-credito/buscar}">Buscar Cuenta de Crédito</a>
+                        <a href="#">Crear Cuenta de Crédito</a>
+                        <a href="#">Realizar Depósito</a>
+                        <a href="#">Realizar Retiro</a>
+                        <a href="#">Solicitar Tarjeta</a>
+                        <a th:href="@{/cuentas-credito/movimientos}">Ver Movimientos</a>
+                    </div>
+                </div>
+                <div class="col-md-2 barraBoton"  id="menuCuentasPrestamos">
+                    <a href="#">Préstamos</a>
+                    <div class="col-md-2 barraBoton-contenido">
+                        <a href="#">Solicitar Préstamo</a>
+                        <a href="#">Pagar Recibo a Préstamo</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- ••••••••••••• NOTIFICACIONES ••••••••••••• -->
+        <div class="container-fluid mt-1">
+            <div th:if="${success!=null}" class="col-xl-12 alert alert-success alert-dismissible fade show" role="alert" id="success">
+                <span th:text="${success}"></span>
+                <button onclick="closeSuccess()" type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            <div th:if="${danger!=null}" class="col-xl-12 alert alert-danger alert-dismissible fade show" role="alert" id="danger">
+                <span th:text="${danger}" ></span>
+                <ul th:if="${listaErrores!=null && listaErrores.size>0}">
+                    <li th:each="error: ${listaErrores}" th:text="${error}"></li>
+                </ul>
+                <button onclick="closeDanger()" type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        </div>
+    </header>
+</body>
+</html>

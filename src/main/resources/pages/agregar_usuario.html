@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      lang="es">
+<head th:insert="layout :: head"></head>
+<body>
+<div th:insert="layout :: nav"></div>
+<div id="mensaje"></div>
+<div class="container mt-5">
+    <form th:action="@{/front/usuarios/editar}" th:object="${usuario}" method="post" class="row">
+        <div class="col col-6">
+            <label for="idUsuario" class="form-label">Id Usuario</label>
+            <input id="idUsuario" type="text" th:field="*{idUsuario}" readonly>
+        </div>
+        <div class="col col-6">
+            <label for="usuario" class="form-label">Usuario</label>
+            <input id="usuario" type="text" th:field="*{usuario}">
+        </div>
+        <div class="col col-6">
+            <label for="nombre" class="form-label">Nombre</label>
+            <input id="nombre" type="text" th:field="*{nombre}">
+        </div>
+        <div class="col col-6">
+            <label for="apPat" class="form-label">Primer Apellido</label>
+            <input id="apPat" type="text" th:field="*{apPat}">
+        </div>
+        <div class="col col-6">
+            <label for="apMat" class="form-label">Segundo Apellido</label>
+            <input id="apMat" type="text" th:field="*{apMat}">
+        </div>
+        <div class="col col-6">
+            <label for="email" class="form-label">Email</label>
+            <input id="email" type="text" th:field="*{email}">
+        </div>
+        <div class="col col-6">
+            <label for="contrasena" class="form-label">Contraseña</label>
+            <input id="contrasena" type="text" th:field="*{contrasena}">
+        </div>
+        <div class="col col-6">
+            <label for="intentos" class="form-label">Intentos</label>
+            <input id="intentos" type="text" th:field="*{intentos}">
+        </div>
+        <div class="col col-6">
+            <label for="estatus" class="form-label">Estatus</label>
+            <input id="estatus" type="text" th:field="*{estatus}">
+        </div>
+        <div class="col col-6">
+            <label for="tipoUsuario" class="form-label">TipoUsuario</label>
+            <input id="tipoUsuario" type="text" th:field="*{tipoUsuario}">
+        </div>
+        <div class="col col-6">
+            <label for="fechaExpUsuario" class="form-label">Fecha Exp Usuario</label>
+            <input id="fechaExpUsuario" type="text" th:field="*{fechaExpUsuario}" th:value="*{fechaExpUsuario}">
+        </div>
+        <div class="col col-6">
+            <label for="fechaExpContrasena" class="form-label">Fecha Exp Contraseña</label>
+            <input id="fechaExpContrasena" type="text" th:field="*{fechaExpContrasena}" th:value="*{fechaExpContrasena}">
+        </div>
+        <div class="col col-6">
+                <a class="btn btn-primary" onclick="enviarFormulario()"> Guardar cambios</a>
+        </div>
+    </form>
+
+</div>
+<div th:insert="layout :: footer"></div>
+<script>
+    function enviarFormulario() {
+        const formData = {
+            usuario: document.getElementById('usuario').value,
+            nombre: document.getElementById('nombre').value,
+            apPat: document.getElementById('apPat').value,
+            apMat: document.getElementById('apMat').value,
+            email: document.getElementById('email').value,
+            contrasena: document.getElementById('contrasena').value,
+            intentos: document.getElementById('intentos').value,
+            estatus: document.getElementById('estatus').value,
+            tipoUsuario: document.getElementById('tipoUsuario').value,
+            fechaExpUsuario: document.getElementById('fechaExpUsuario').value,
+            fechaExpContrasena: document.getElementById('fechaExpContrasena').value
+        };
+
+        fetch('/front/usuarios/', {
+            method: 'post',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(formData)
+        }).then(response => {
+            const mensajeDiv = document.getElementById('mensaje');
+            if (response.ok) {
+                mensajeDiv.textContent = "Se creó el usuario :)";
+                mensajeDiv.className = "alert alert-success"; // Clase de éxito de Bootstrap
+                mensajeDiv.style.display = "block";
+            } else {
+                mensajeDiv.textContent = "No se pudo crear :( ";
+                console.log(response);
+                mensajeDiv.className = "alert alert-danger"; // Clase de error de Bootstrap
+                mensajeDiv.style.display = "block";
+            }
+
+            // Opción para ocultar el mensaje después de un tiempo (opcional)
+            setTimeout(() => {
+
+            }, 3000); // 3 segundos
+        }).catch(error => {
+            console.error('Error:', error);
+            const mensajeDiv = document.getElementById('mensaje');
+            mensajeDiv.textContent = "Error al enviar la solicitud.";
+            mensajeDiv.className = "alert alert-danger";
+            mensajeDiv.style.display = "block";
+        });
+    }
+</script>
+
+
+
+
+
+</body>
+</html>
